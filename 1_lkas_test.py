@@ -11,7 +11,7 @@ from pid import TwiddlingPID
 # You can also launch the simulator separately
 # in that case, you don't need to pass a `conf` object
 # This assumes DonkeySim simulator is extracted at root of thi repo.
-exe_path = f".\\DonkeySimWin\\donkey_sim.exe"
+exe_path = ".\\DonkeySimWin\\donkey_sim.exe"
 port = 9091
 
 conf = { 
@@ -69,8 +69,7 @@ steer_value = 0
 obs = env.reset()
 # TODO: Increase this range for longer simulation (Or use an infinite loop with break condition)
 for t in range(200):
-  #print(t)
-  action = np.array([steer_value, 0.2]) # drive straight with small speed
+  action = np.array([steer_value, 0.2]) # drive with small speed
   # execute the action
   obs, reward, done, info = env.step(action)
   
@@ -82,8 +81,7 @@ for t in range(200):
 
   lane_image,cte,curvrad = process_image(rgb_image, src, dst, thresholds, curve_centers)
 
-  print("CTE: " + str(round(cte,2)))
-  print(str(round(info['cte']-2,2)))
+  #print("CTE: " + str(round(info['cte']-2,2)) + " Calculated: " + str(round(cte,2)))
 
   # TODO: Uncomment these lines for overlay images
   #if(t < 200):

@@ -2,6 +2,12 @@ import os
 import gym
 import gym_donkeycar
 import numpy as np
+import cv2
+
+from keras.models import load_model
+import h5py
+
+from model import preprocess
 
 # SET UP ENVIRONMENT
 # You can also launch the simulator separately
@@ -21,12 +27,25 @@ conf = {
 
 env = gym.make("donkey-minimonaco-track-v0", conf=conf)
 
+# check that model Keras version is same as local Keras version
+#f = h5py.File('model.h5', mode='r')
+
+model = load_model('model.h5')
+
+steering_angle = 0
+
 # PLAY
 obs = env.reset()
-for t in range(100):
-  action = np.array([0.0, 0.3]) # drive straight with small speed
+for t in range(250):
+  action = np.array([steering_angle, 0.15]) # drive straight with small speed
   # execute the action
   obs, reward, done, info = env.step(action)
+
+  image_array = preprocess(np.asarray(obs))
+  #if(t==0):
+  #  cv2.imwrite("sample.jpg",image_array)
+  steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
+  print(steering_angle)
 
 # Exit the scene
 env.close()
