@@ -48,3 +48,17 @@ Remember to update simulation binary path at the top of each demo.
 # This assumes DonkeySim simulator is extracted at root of this repo.
 exe_path = ".\\DonkeySimWin\\donkey_sim.exe"
 ```
+
+Note: When running demo 3, first launch `3_dynamic_cruise_test.py`
+
+```shell
+python 3_dynamic_cruise_test.py
+```
+
+as soon as simulator is launched and track is loaded with a car equipped with LIDAR, launch `3_dynamic_cruise_lead.py` in another terminal.
+
+```shell
+python 3_dynamic_cruise_lead.py
+```
+
+It is important to wait till simulator is launched to start the lead vehicle and it should be quick enough so it has time to take the lead.
